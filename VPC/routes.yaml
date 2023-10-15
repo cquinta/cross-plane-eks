@@ -1,0 +1,98 @@
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: RouteTable
+metadata:
+  name: crossplane-private
+spec:
+  forProvider:
+    region: us-east-1
+    tags:
+      Name: crossplane-private
+    vpcIdRef:
+      name: crossplane-vpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Route
+metadata:
+  name: crossplane-private
+spec:
+  forProvider:
+    destinationCidrBlock: 0.0.0.0/0
+    natGatewayIdRef:
+      name: crossplane-nat
+    region: us-east-1
+    routeTableIdRef:
+      name: crossplane-private
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: RouteTable
+metadata:
+  name: crossplane-public
+spec:
+  forProvider:
+    region: us-east-1
+    tags:
+      Name: crossplane-public
+    vpcIdRef:
+      name: crossplane-vpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Route
+metadata:
+  name: crossplane-public
+spec:
+  forProvider:
+    destinationCidrBlock: 0.0.0.0/0
+    gatewayIdRef:
+      name: crossplane-igw
+    region: us-east-1
+    routeTableIdRef:
+      name: crossplane-public
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: RouteTableAssociation
+metadata:
+  name: crossplane1-private-us-east-1a
+spec:
+  forProvider:
+    region: us-east-1
+    routeTableIdRef:
+      name: crossplane-private
+    subnetIdRef
+      name: crossplane1-private-us-east-1a
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: RouteTableAssociation
+metadata:
+  name: crossplane1-private-us-east-1b
+spec:
+  forProvider:
+    region: us-east-1
+    routeTableIdRef:
+      name: crossplane-private
+    subnetIdRef:
+      name: crossplane1-private-us-east-1b
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: RouteTableAssociation
+metadata:
+  name: crossplane1-public-us-east-1a
+spec:
+  forProvider:
+    region: us-east-1
+    routeTableIdRef:
+      name: crossplane-public
+    subnetIdRef:
+      name: crossplane1-public-us-east-1a
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: RouteTableAssociation
+metadata:
+  name: crossplane1-public-us-east-1b
+spec:
+  forProvider:
+    region: us-east-1
+    routeTableIdRef:
+      name: crossplane-public
+    subnetIdRef:
+      name: crossplane1-public-us-east-1b

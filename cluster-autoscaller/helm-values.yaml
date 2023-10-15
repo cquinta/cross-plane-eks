@@ -1,0 +1,9 @@
+---
+awsRegion: us-east-1
+autoDiscovery:
+  clusterName: crossplane-eks-cluster
+rbac:
+  serviceAccount:
+    name: cluster-autoscaler
+    annotations:
+      eks.amazonaws.com/role-arn: arn:aws:iam::696776820132:role/cluster-autoscaler

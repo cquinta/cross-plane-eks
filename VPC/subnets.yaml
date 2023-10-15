@@ -1,0 +1,73 @@
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  name: crossplane1-private-us-east-1a
+  labels:
+  name: crossplane1-private-us-east-1a
+spec:
+  forProvider:
+    availabilityZone: us-east-1a
+    cidrBlock: 10.0.0.0/19
+    region: us-east-1
+    tags:
+      Name: crossplane1-private-us-east-1a
+      kubernets.io/role/internal-elb: "1"
+      kubernetes.io/cluster/crossplane: "owned"
+    vpcIdRef:
+      name: crossplane-vpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  name: crossplane1-private-us-east-1b
+  labels:
+  name: crossplane1-private-us-east-1b
+spec:
+  forProvider:
+    availabilityZone: us-east-1b
+    cidrBlock: 10.0.32.0/19
+    region: us-east-1
+    tags:
+      Name: crossplane1-private-us-east-1b
+      kubernets.io/role/internal-elb: "1"
+      kubernetes.io/cluster/crossplane: "owned"
+    vpcIdRef:
+      name: crossplane-vpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  name: crossplane1-public-us-east-1a
+  labels:
+  name: crossplane1-public-us-east-1a
+spec:
+  forProvider:
+    availabilityZone: us-east-1a
+    cidrBlock: 10.0.64.0/19
+    region: us-east-1
+    tags:
+      Name: crossplane1-public-us-east-1a
+      kubernets.io/role/elb: "1"
+      kubernetes.io/cluster/crossplane: "owned"
+    vpcIdRef:
+      name: crossplane-vpc
+
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  name: crossplane1-public-us-east-1b
+  labels:
+  name: crossplane1-public-us-east-1b
+spec:
+  forProvider:
+    availabilityZone: us-east-1b
+    cidrBlock: 10.0.96.0/19
+    region: us-east-1
+    tags:
+      Name: crossplane1-public-us-east-1b
+      kubernets.io/role/elb: "1"
+      kubernetes.io/cluster/crossplane: "owned"
+    vpcIdRef:
+      name: crossplane-vpc

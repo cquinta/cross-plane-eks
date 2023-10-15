@@ -1,0 +1,13 @@
+apiVersion: s3.aws.upbound.io/v1beta1
+kind: Bucket
+metadata:
+  name: cquinta-crossplane-test-bucket
+spec:
+  forProvider:
+    region: us-east-1
+    tags:
+      Name: SampleBucket-1
+  providerConfigRef:
+    name: default
+    
+    

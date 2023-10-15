@@ -1,0 +1,47 @@
+apiVersion: eks.aws.upbound.io/v1beta1
+kind: NodeGroup
+metadata:
+  name: general
+spec:
+  forProvider:
+    clusterNameRef:
+      name: crossplane-eks-cluster
+    nodeRoleArnRef:
+      name: crossplane-eks-node-role
+    region: us-east-1
+    capacityType: ON_DEMAND
+    instanceTypes:
+      - t3.small
+    labels:
+      role: general
+    scalingConfig:
+      - desiredSize: 1
+        maxSize: 2
+        minSize: 1
+    subnetIdRefs:
+      - name: crossplane1-private-us-east-1a
+      - name: crossplane1-private-us-east-1b
+---
+apiVersion: eks.aws.upbound.io/v1beta1
+kind: NodeGroup
+metadata:
+  name: spot
+spec:
+  forProvider:
+    clusterNameRef:
+      name: crossplane-eks-cluster
+    nodeRoleArnRef:
+      name: crossplane-eks-node-role
+    region: us-east-1
+    capacityType: SPOT
+    instanceTypes:
+      - t3.small
+    labels:
+      role: spot
+    scalingConfig:
+      - desiredSize: 1
+        maxSize: 4
+        minSize: 1
+    subnetIdRefs:
+      - name: crossplane1-private-us-east-1a
+      - name: crossplane1-private-us-east-1b

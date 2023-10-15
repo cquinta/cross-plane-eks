@@ -1,0 +1,26 @@
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: EIP
+metadata:
+  name: crossplane-nat-eip
+spec:
+  forProvider:
+    region: us-east-1
+    vpc: true
+    tags:
+      Name: crossplane-nat-eip
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: NATGateway
+metadata:
+  name: crossplane-nat
+spec:
+  forProvider:
+    region: us-east-1
+    connectivityType: public
+    allocationIdRef:
+      name: crossplane-nat-eip
+    subnetIdRef:
+      name: crossplane1-public-us-east-1a
+    tags:
+      name: crossplane-nat
